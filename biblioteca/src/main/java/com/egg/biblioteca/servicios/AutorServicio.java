@@ -44,7 +44,8 @@ public class AutorServicio {
             Autor autor = respuesta.get();
             
             autor.setNombre(nombre);
-            autor.setId(id);
+            
+            autorRepositorio.save(autor);
         }
     }
 }
