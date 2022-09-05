@@ -12,14 +12,18 @@
             <table class="table table-dark">
                 <thead> 
                     <tr>
-                        <th scope="col">Id del Autor</th>
-                        <th scope="col">Nombre del Autor</th>
+                        <th scope="col"><strong>Nombre del Autor</strong></th>
+                        <th scope="col"><strong>Id del Autor</strong></th>
+                        <th scope="col"><strong>Acciones</strong></th>
                     </tr>
                 </thead>
                 <tbody th:each="autor : ${autores}">
                     <tr>
+                        <td th:text="${autor.nombre}"></td>
                         <th scope="row" th:text="${autor.id}"></th>
-                        <td th:text="${nombre.id}"></td>
+                        <td>
+                            <a th:href="@{/autor/modificar/__${autor.id}__}"><i class="fas fa-feather-alt"> Modificar</i> </a>
+                        </td>
                     </tr>
                 </tbody>
 
