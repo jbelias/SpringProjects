@@ -1,13 +1,9 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <title>Lista libros</title>
-        <meta charset="UTF-8">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:replace= "/fragments/head :: head"> </head>
     <body>
+        <nav th:replace="/fragments/navbar :: nav"></nav>
         <div class="container">
             <table class="table table-dark">
                 <thead> 
@@ -17,7 +13,7 @@
                         <th scope="col"><strong>Ejemplares</strong></th>
                         <th scope="col"><strong>Autor</strong></th>
                         <th scope="col"><strong>Editorial</strong></th>
-                        <th scope="col"><strong>Acciones</strong></th>
+                        <th scope="col" sec:authorize="hasRole('ADMIN')"><strong>Acciones</strong></th>
                     </tr>
                 </thead>
                 
@@ -29,7 +25,7 @@
                         <td th:text="${libro.autor.nombre}"></td>
                         <td th:text="${libro.editorial.nombre}"></td>
                         <td>
-                            <a href="#"><i class="fas fa-feather-alt"> </i>Modificar </a>
+                            <a sec:authorize="hasRole('ADMIN')" href="#"><i class="fas fa-feather-alt"> </i>Modificar </a>
                         </td>
                     </tr>
                 </tbody>
