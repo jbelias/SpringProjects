@@ -24,8 +24,7 @@ public class Imagen {
     
     private String nombre;
     
-    @Lob //con esta anotacion informamos a Spring que el formato puede ser de gran tamaño
-    @Basic(fetch = FetchType.LAZY)
+    @Lob @Basic(fetch = FetchType.LAZY) //con esta anotacion informamos a Spring que el formato puede ser de gran tamaño
     private byte[] contenido;
 
     public Imagen() {
@@ -62,8 +61,5 @@ public class Imagen {
     public void setContenido(byte[] contenido) {
         this.contenido = contenido;
     }
-
-    
-    
     
 }

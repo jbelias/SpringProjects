@@ -3,8 +3,6 @@ package com.egg.biblioteca.controladores;
 import com.egg.biblioteca.entidades.Usuario;
 import com.egg.biblioteca.exceptions.MiException;
 import com.egg.biblioteca.servicios.UsuarioServicio;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @Controller
@@ -36,10 +35,10 @@ public class PortalControlador {
     
     @PostMapping("/registro")
     public String registro(@RequestParam String nombre, @RequestParam String email, @RequestParam String password,
-            @RequestParam String password2, ModelMap modelo){
+            @RequestParam String password2, ModelMap modelo, @RequestParam(required=false) MultipartFile archivo){
         
         try {
-            usuarioServicio.registrar(nombre, email, password, password2);
+            usuarioServicio.registrar(archivo, nombre, email, password, password2);
             
             modelo.put("exito", "Usuario registrado correctamente.");
             
@@ -47,7 +46,8 @@ public class PortalControlador {
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
             modelo.put("nombre", nombre);
-            modelo.put("email", email);            
+            modelo.put("email", email);
+            modelo.put("archivo", archivo);
             
             return "registro.html";
         }

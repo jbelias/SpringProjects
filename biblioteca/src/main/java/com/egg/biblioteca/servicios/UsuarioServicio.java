@@ -53,12 +53,17 @@ public class UsuarioServicio implements UserDetailsService {
         usuarioRepositorio.save(usuario);
     }
 
+    @Transactional(readOnly = true) //solo sirve para leer.
+    public Usuario getOne(String id){
+        return usuarioRepositorio.getOne(id);
+    }
+    
     @Transactional
-    public void actualizar(MultipartFile archivo, String idUsuario, String nombre, String email, String password, String password2) throws MiException {
+    public void actualizar(MultipartFile archivo, String id, String nombre, String email, String password, String password2) throws MiException {
 
         validar(nombre, email, password, password2);
 
-        Optional<Usuario> respuesta = usuarioRepositorio.findById(idUsuario);
+        Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
         if (respuesta.isPresent()) {
 
             Usuario usuario = respuesta.get();
@@ -123,4 +128,5 @@ public class UsuarioServicio implements UserDetailsService {
             return null;
         }
     }
+
 }

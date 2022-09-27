@@ -78,8 +78,5 @@ public class Usuario {
     public void setImagen(Imagen imagen) {
         this.imagen = imagen;
     }
-    
-    
-    
-    
+
 }
