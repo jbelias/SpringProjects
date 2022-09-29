@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org">
     <head th:replace= "/fragments/head :: head"></head>
+
     <body>
+
         <nav class="navbar navbar-expand-lg bg-warning" >
             <div class="container-fluid">
                 <a class="navbar-brand" href="http://localhost:8080/">
@@ -20,7 +22,7 @@
                                 LIBROS
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="http://localhost:8080/libro/lista">Listas de libros</a></li>
+                                <li><a class="dropdown-item" href="#">Listas de libros</a></li>
                                 <li><a class="dropdown-item" href="#"></a></li>
                                 <li><a class="dropdown-item" href="#"></a></li>
                             </ul>
@@ -30,7 +32,7 @@
                                 Autores
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="http://localhost:8080/autor/lista">Listas de Autores</a></li>
+                                <li><a class="dropdown-item" href="#">Listas de Autores</a></li>
                                 <li><a class="dropdown-item" href="#"></a></li>
                                 <li><a class="dropdown-item" href="#"></a></li>
                             </ul>
@@ -40,44 +42,41 @@
                                 Editoriales
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="http://localhost:8080/editorial/lista">Listas de Editoriales</a></li>
+                                <li><a class="dropdown-item" href="#">Listas de Editoriales</a></li>
                                 <li><a class="dropdown-item" href="#"></a></li>
                                 <li><a class="dropdown-item" href="#"></a></li>
                             </ul>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Perfil
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" th:href="@{/perfil}">Editar Perfil</a></li>
-                                <li><a class="dropdown-item" href="#"></a></li>
-                                <li><a class="dropdown-item" href="#"></a></li>
-                            </ul>
-                        </li>
+
                     </ul>
                 </div>
-                <a class="button" href="/logout" target="_self">Cerrar Sesión</a>
+                <div align="right">
+
+                    <a class="button" th:if="${session.usuariosession == null}" href="http://localhost:8080/login" target="_blank">Iniciar Sesion</a>
+                    <a class="button" th:if="${session.usuariosession == null}" href="http://localhost:8080/registrar" target="_blank">Registrarse</a>
+                    <a class="button" th:if="${session.usuariosession != null}" href="/logout" target="_self">Cerrar Sesión</a>
+                    <!-- 
+                    BOTON PARA INICIO DE SESION(CAMBIAR CONDICIONES EN CSS)
+                    
+                    <button type="button" onclick="http://localhost:8080/registrar">
+                                            <span></span>Registrarse
+                                        </button>-->
+                </div>
             </div>
         </nav>
         
-        <h3 align="left"><strong th:text=" 'Has ingresado como: ' + ${session.usuariosession.nombre}"></strong></h3>
-        <a class="d-flex align-items-center">
-           <img class="logo" th:src="@{/imagen/perfil/__${session.usuariosession.id}__}" alt="Img logo egg"> 
-        </a>
-        
+        <div> 
+            <br>
+        </div>
+
         <div align="center">
-            <div class="card text-dark bg-warning mb-3 align-left" style="max-width: 25rem;">
-                <div class="card-header" align="center">Esto es la BibliotEggca ;)</div>
+            <div class="card text-warning bg-dark mb-3 align-center" style="max-width: 25rem;">
+                <div class="card-header" align="center" th:text="'Error ' + ${codigo}">BibliotEggca</div>
                 <div class="card-body">
-                    <h5 class="card-title"><strong th:text=" 'Bienvenidx, ' + ${session.usuariosession.nombre}"></strong></h5>
-                    <p class="card-text">Podrás ingresar libros, autores y editoriales.
-                    <br>También podrás ver los mismos.
-                    <br>Registrate y disfruta de la experiencia.
-                    </p>
+                    <h5 class="card-title"><strong></strong></h5>
+                    <p class="card-text" th:text="${mensaje}"></p>
                 </div>
             </div>
-
         </div>
         
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>

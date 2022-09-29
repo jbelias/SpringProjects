@@ -54,10 +54,10 @@ public class UsuarioServicio implements UserDetailsService {
     }
 
     @Transactional(readOnly = true) //solo sirve para leer.
-    public Usuario getOne(String id){
+    public Usuario getOne(String id) {
         return usuarioRepositorio.getOne(id);
     }
-    
+
     @Transactional
     public void actualizar(MultipartFile archivo, String id, String nombre, String email, String password, String password2) throws MiException {
 
@@ -85,7 +85,34 @@ public class UsuarioServicio implements UserDetailsService {
 
             usuarioRepositorio.save(usuario);
         }
+    }
 
+    @Transactional(readOnly = true)
+    public List<Usuario> listarUsuarios() {
+
+        List<Usuario> usuarios = new ArrayList();
+
+        usuarios = usuarioRepositorio.findAll();
+
+        return usuarios;
+    }
+
+    @Transactional
+    public void cambiarRol(String id) {
+        Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
+
+        if (respuesta.isPresent()) {
+
+            Usuario usuario = respuesta.get();
+
+            if (usuario.getRol().equals(Rol.USER)) {
+
+                usuario.setRol(Rol.ADMIN);
+
+            } else if (usuario.getRol().equals(Rol.ADMIN)) {
+                usuario.setRol(Rol.USER);
+            }
+        }
     }
 
     public void validar(String nombre, String email, String password, String password2) throws MiException {
